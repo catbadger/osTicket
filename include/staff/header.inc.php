@@ -45,6 +45,11 @@ if ($lang) {
     if($ost && ($headers=$ost->getExtraHeaders())) {
         echo "\n\t".implode("\n\t", $headers)."\n";
     }
+    //required because there's no render factory in the plugin system.
+    if(class_exists('TTPunchButton')) {
+        $trexButton = new TTPunchButton();
+        $trexButton->script();
+    }
     ?>
 </head>
 <body>
