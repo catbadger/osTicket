@@ -1381,9 +1381,10 @@ implements TemplateVariable {
                             && strpos($body, 'cid:'.$a['cid']) !== false)
                         $files[$i]['inline'] = true;
                 }
+                
                 foreach ($entry->normalizeFileInfo($files) as $F) {
-                    // Deduplicate on the `key` attribute
-                    $attached_files[$F['key']] = $F;
+                    // Deduplicate on the `name` attribute because responses have no `key` attribute
+                    $attached_files[$F['name']] = $F;
                 }
             }
         }
