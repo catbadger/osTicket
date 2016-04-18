@@ -3591,8 +3591,13 @@ implements RestrictedAccess, Threadable {
             else
                 $signature='';
 
-            $attachments = ($cfg->emailAttachments() && $response)
-                ? $response->getAttachments() : array();
+            $attachments = array();
+            //this is the attachment bug
+            if($tform->getField('message')->getWidget()->getAttachments($cfg)) {
+                $attachments = $ticket->getThread($vars)->getLastMessage()->getAttachments();
+            }elseif($cfg->emailAttachments() && $response) {
+                $attachments = $response->getAttachments();
+            }
 
             $msg = $ticket->replaceVars($msg->asArray(),
                 array(
